@@ -10,5 +10,5 @@ data class HeartbeatData(
     val socket: WebSocket,
     var bpm: Int? = null,
     var bossbar: BossBar? = null,
-    var lastHeartbeatTick: Int = 0
+    var lastHeartbeatTick: Int = 0,
 )

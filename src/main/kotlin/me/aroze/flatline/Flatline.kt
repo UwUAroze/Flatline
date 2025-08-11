@@ -1,6 +1,7 @@
 package me.aroze.flatline
 
 import me.aroze.flatline.command.SetAccessTokenCommand
+import me.aroze.flatline.command.ToggleCommand
 import me.aroze.flatline.listener.bukkit.PlayerConnectionListener
 import me.aroze.flatline.ticker.HeartbeatTicker
 import net.kyori.adventure.text.minimessage.MiniMessage
@@ -63,6 +64,7 @@ class Flatline : JavaPlugin() {
             AnnotationParser(commandManager, CommandSender::class.java)
 
         annotationParser.parse(SetAccessTokenCommand)
+        annotationParser.parse(ToggleCommand)
     }
 }
 

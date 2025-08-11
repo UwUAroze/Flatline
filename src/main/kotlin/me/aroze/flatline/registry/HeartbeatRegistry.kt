@@ -27,6 +27,10 @@ object HeartbeatRegistry {
         return set(uuid, savedTokenUUID)
     }
 
+    fun getLoaded(uuid: UUID): HeartbeatData? {
+        return heartBeatData[uuid]
+    }
+
     fun getAllLoaded(): Collection<HeartbeatData> {
         return heartBeatData.values
     }
@@ -62,6 +66,11 @@ object HeartbeatRegistry {
 
         data.socket.cancel()
         heartBeatData.remove(uuid)
+
+        val player = flatline.server.getPlayer(uuid)
+        if (player != null && data.bossbar != null) {
+            player.hideBossBar(data.bossbar!!)
+        }
     }
 
 }

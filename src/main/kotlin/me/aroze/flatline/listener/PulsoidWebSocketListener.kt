@@ -16,28 +16,30 @@ class PulsoidWebSocketListener(val uuid: UUID) : WebSocketListener() {
     private val json = Json { ignoreUnknownKeys = true }
     private var lastHeartRate: Int? = null
 
+    init {
+        Bukkit.getPlayer(uuid)?.sendMessage(flatline.mm.deserialize("<#fff1bf>Waiting for heartbeat data..."))
+    }
+
     override fun onOpen(webSocket: WebSocket, response: Response) {
         val player = Bukkit.getPlayer(uuid) ?: return
-
         player.sendMessage(flatline.mm.deserialize("<#bfffd1>Your heartbeat is now being tracked <3"))
-
         HeartbeatRegistry.save(player.uniqueId)
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
-        val hearbeatData = HeartbeatRegistry.getOrLoad(uuid)
+        val heartbeatData = HeartbeatRegistry.getOrLoad(uuid)
             ?: return
 
         try {
             val hrData = json.decodeFromString<PulsoidResponse>(text)
             if (hrData.data.heartRate != lastHeartRate) {
                 lastHeartRate = hrData.data.heartRate
-                hearbeatData.bpm = hrData.data.heartRate
+                heartbeatData.bpm = hrData.data.heartRate
 
                 val player = Bukkit.getPlayer(uuid)
                 if (player != null) {
                     Bukkit.broadcast(Component.text("${player.name}: ${hrData.data.heartRate} BPM"))
-                    updateBossBar(player, hearbeatData)
+                    updateBossBar(player, heartbeatData)
                 }
             }
         } catch (e: Exception) {

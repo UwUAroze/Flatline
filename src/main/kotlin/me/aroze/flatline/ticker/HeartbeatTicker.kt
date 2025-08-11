@@ -29,6 +29,6 @@ class HeartbeatTicker : Runnable {
     }
 
     private fun playHeartbeatSound(player: Player) {
-        player.playSound(player.location, Sound.ENTITY_WARDEN_HEARTBEAT, 1f, 1f)
+        player.playSound(player, Sound.ENTITY_WARDEN_HEARTBEAT, 1f, 1f)
     }
 }

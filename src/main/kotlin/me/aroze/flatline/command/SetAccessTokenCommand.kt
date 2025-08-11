@@ -11,7 +11,6 @@ object SetAccessTokenCommand {
     @Command("flatline set-access-token <token>")
     fun setAccessToken(player: Player, token: UUID) {
         HeartbeatRegistry.set(player.uniqueId, token)
-        player.sendMessage(flatline.mm.deserialize("<#fff1bf>Waiting for heartbeat data..."))
     }
 
 }
