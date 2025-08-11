@@ -4,7 +4,7 @@ import net.kyori.adventure.bossbar.BossBar
 import okhttp3.WebSocket
 import java.util.UUID
 
-data class HeartbeatData(
+data class HeartRateData(
     val uuid: UUID,
     val accessToken: UUID,
     val socket: WebSocket,

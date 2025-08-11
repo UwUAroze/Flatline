@@ -1,8 +1,8 @@
 import kotlinx.serialization.json.Json
 import me.aroze.flatline.flatline
-import me.aroze.flatline.model.HeartbeatData
+import me.aroze.flatline.model.HeartRateData
 import me.aroze.flatline.model.pulsoid.PulsoidResponse
-import me.aroze.flatline.registry.HeartbeatRegistry
+import me.aroze.flatline.registry.HeartRateRegistry
 import net.kyori.adventure.bossbar.BossBar
 import net.kyori.adventure.text.Component
 import okhttp3.Response
@@ -17,17 +17,17 @@ class PulsoidWebSocketListener(val uuid: UUID) : WebSocketListener() {
     private var lastHeartRate: Int? = null
 
     init {
-        Bukkit.getPlayer(uuid)?.sendMessage(flatline.mm.deserialize("<#fff1bf>Waiting for heartbeat data..."))
+        Bukkit.getPlayer(uuid)?.sendMessage(flatline.mm.deserialize("<#fff1bf>Waiting for heart beat..."))
     }
 
     override fun onOpen(webSocket: WebSocket, response: Response) {
         val player = Bukkit.getPlayer(uuid) ?: return
-        player.sendMessage(flatline.mm.deserialize("<#bfffd1>Your heartbeat is now being tracked <3"))
-        HeartbeatRegistry.save(player.uniqueId)
+        player.sendMessage(flatline.mm.deserialize("<#bfffd1>Your heart rate is now being tracked <3"))
+        HeartRateRegistry.save(player.uniqueId)
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
-        val heartbeatData = HeartbeatRegistry.getOrLoad(uuid)
+        val heartbeatData = HeartRateRegistry.getOrLoad(uuid)
             ?: return
 
         try {
@@ -47,7 +47,7 @@ class PulsoidWebSocketListener(val uuid: UUID) : WebSocketListener() {
         }
     }
 
-    private fun updateBossBar(player: Player, data: HeartbeatData) {
+    private fun updateBossBar(player: Player, data: HeartRateData) {
         val max = 175f
         val min = 30f
 

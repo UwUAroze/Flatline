@@ -1,6 +1,6 @@
 package me.aroze.flatline.listener.bukkit
 
-import me.aroze.flatline.registry.HeartbeatRegistry
+import me.aroze.flatline.registry.HeartRateRegistry
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
@@ -10,12 +10,12 @@ object PlayerConnectionListener : Listener {
 
     @EventHandler
     fun onJoin(event: PlayerJoinEvent) {
-        HeartbeatRegistry.getOrLoad(event.player.uniqueId)
+        HeartRateRegistry.getOrLoad(event.player.uniqueId)
     }
 
     @EventHandler
     fun onQuit(event: PlayerQuitEvent) {
-        HeartbeatRegistry.remove(event.player.uniqueId)
+        HeartRateRegistry.remove(event.player.uniqueId)
     }
 
 }

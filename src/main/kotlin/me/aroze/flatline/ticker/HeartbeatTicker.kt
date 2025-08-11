@@ -1,6 +1,6 @@
 package me.aroze.flatline.ticker
 
-import me.aroze.flatline.registry.HeartbeatRegistry
+import me.aroze.flatline.registry.HeartRateRegistry
 import org.bukkit.Bukkit
 import org.bukkit.Sound
 import org.bukkit.entity.Player
@@ -12,7 +12,7 @@ class HeartbeatTicker : Runnable {
     override fun run() {
         tick++
 
-        for (data in HeartbeatRegistry.getAllLoaded()) {
+        for (data in HeartRateRegistry.getAllLoaded()) {
             if (data.bpm == null) {
                 continue
             }

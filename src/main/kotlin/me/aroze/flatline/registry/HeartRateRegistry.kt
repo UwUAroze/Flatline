@@ -2,15 +2,15 @@ package me.aroze.flatline.registry
 
 import PulsoidWebSocketListener
 import me.aroze.flatline.flatline
-import me.aroze.flatline.model.HeartbeatData
+import me.aroze.flatline.model.HeartRateData
 import okhttp3.Request
 import java.util.UUID
 
-object HeartbeatRegistry {
+object HeartRateRegistry {
 
-    private val heartBeatData = mutableMapOf<UUID, HeartbeatData>()
+    private val heartBeatData = mutableMapOf<UUID, HeartRateData>()
 
-    fun getOrLoad(uuid: UUID): HeartbeatData? {
+    fun getOrLoad(uuid: UUID): HeartRateData? {
         val heartbeatData = heartBeatData[uuid]
         if (heartbeatData != null) return heartbeatData
 
@@ -27,15 +27,15 @@ object HeartbeatRegistry {
         return set(uuid, savedTokenUUID)
     }
 
-    fun getLoaded(uuid: UUID): HeartbeatData? {
+    fun getLoaded(uuid: UUID): HeartRateData? {
         return heartBeatData[uuid]
     }
 
-    fun getAllLoaded(): Collection<HeartbeatData> {
+    fun getAllLoaded(): Collection<HeartRateData> {
         return heartBeatData.values
     }
 
-    fun set(uuid: UUID, accessToken: UUID): HeartbeatData {
+    fun set(uuid: UUID, accessToken: UUID): HeartRateData {
         if (heartBeatData.contains(uuid)) {
             remove(uuid)
         }
@@ -47,10 +47,10 @@ object HeartbeatRegistry {
             PulsoidWebSocketListener(uuid)
         )
 
-        val heartbeatData = HeartbeatData(uuid, accessToken, socket)
-        heartBeatData[uuid] = heartbeatData
+        val heartrateData = HeartRateData(uuid, accessToken, socket)
+        heartBeatData[uuid] = heartrateData
 
-        return heartbeatData
+        return heartrateData
     }
 
     fun save(uuid: UUID) {

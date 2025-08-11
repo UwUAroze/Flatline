@@ -1,7 +1,7 @@
 package me.aroze.flatline.command
 
 import me.aroze.flatline.flatline
-import me.aroze.flatline.registry.HeartbeatRegistry
+import me.aroze.flatline.registry.HeartRateRegistry
 import org.bukkit.entity.Player
 import org.incendo.cloud.annotations.Command
 
@@ -9,14 +9,14 @@ object ToggleCommand {
 
     @Command("flatline toggle")
     fun toggle(player: Player) {
-        val cachedHeartbeatData = HeartbeatRegistry.getLoaded(player.uniqueId)
+        val cachedHeartbeatData = HeartRateRegistry.getLoaded(player.uniqueId)
 
         if (cachedHeartbeatData != null) {
-            HeartbeatRegistry.remove(player.uniqueId)
-            player.sendMessage(flatline.mm.deserialize("<#ffbfbf>Heartbeat tracking has been disabled ;c"))
+            HeartRateRegistry.remove(player.uniqueId)
+            player.sendMessage(flatline.mm.deserialize("<#ffbfbf>Heart rate tracking has been disabled ;c"))
         } else {
-            player.sendMessage(flatline.mm.deserialize("<#bfffd1>Heartbeat tracking has been enabled!"))
-            HeartbeatRegistry.getOrLoad(player.uniqueId)
+            player.sendMessage(flatline.mm.deserialize("<#bfffd1>Heart rate tracking has been enabled!"))
+            HeartRateRegistry.getOrLoad(player.uniqueId)
         }
     }
 
