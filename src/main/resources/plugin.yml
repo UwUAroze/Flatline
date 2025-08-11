@@ -1,0 +1,4 @@
+name: Flatline
+version: '1.0.0'
+main: me.aroze.flatline.Flatline
+api-version: '1.21'
